@@ -1,0 +1,43 @@
+BEGINNING OF SIMULATIONS
+PID du processus courant : 30500
+Extraction of scenario 111 started!
+Error in file(filename, "r", encoding = encoding) : 
+  impossible d'ouvrir la connexion
+Calls: source -> file
+De plus : Warning message:
+In file(filename, "r", encoding = encoding) :
+  impossible d'ouvrir le fichier 'code/pe_mv.R' : Aucun fichier ou dossier de ce type
+Exécution arrêtée
+BEGINNING OF SIMULATIONS
+PID du processus courant : 31133
+Extraction of scenario 111 started!
+Error in file(filename, "r", encoding = encoding) : 
+  impossible d'ouvrir la connexion
+Calls: source -> file
+De plus : Warning message:
+In file(filename, "r", encoding = encoding) :
+  impossible d'ouvrir le fichier 'code/pe_mv.R' : Aucun fichier ou dossier de ce type
+Exécution arrêtée
+BEGINNING OF SIMULATIONS
+PID du processus courant : 32037
+Extraction of scenario 111 started!
+Composition for  111 
+Simulation : 1  / 100 % 
+Error in read_fst(path, columns, from, to, as.data.table, old_format) : 
+  Error opening fst file for reading, please check access rights and file availability
+Calls: read.fst -> read_fst
+Exécution arrêtée
+BEGINNING OF SIMULATIONS
+PID du processus courant : 32447
+Extraction of scenario 111 started!
+Composition for  111 
+Simulation : 1  / 100 % 
+Error in read_fst(path, columns, from, to, as.data.table, old_format) : 
+  Error opening fst file for reading, please check access rights and file availability
+Calls: read.fst -> read_fst
+Exécution arrêtée
+BEGINNING OF SIMULATIONS
+PID du processus courant : 32537
+Extraction of scenario 111 started!
+Composition for  111 
+Simulation : 1  / 100 % 
