@@ -62,7 +62,7 @@ mu=0
 beta=29.5 # so that >80% of migrants disperse into the first 50km
 
 h = c(1, 0.95, 0.9, 0.85, 0.8, 0.75, 0.7, 0.65, 0.6, 0.55, 0.5) # Philopatry (homing) rates #edit al - 22/03/21 5% and 15%
-#scenarioConnect=7 #scenario 1 for h=1.00, scenario 2 for h=0.95, scenario 3 pour h=0.80
+#scenarioConnect=7 #scenario 1 for h=1.00, scenario 2 for h=0.95, scenario 5 pour h=0.80
 scenarioConnect = as.numeric(args[1]) #scenario 1 for h=1.00, scenario 2 for h=0.95, scenario 3 pour h=0.80
 
 # 1.2 Connectivity matrix
@@ -128,14 +128,20 @@ fish.stage=TRUE # fishing on life stages (1SW/MSW) if TRUE, on Sizes ("small","m
 
 ## 3.1. Fishing rate
 
-frates_vec =c(0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55, 0.6, 0.65, 0.7, 0.75, 0.8, 0.85, 0.9, 0.95, 1)
+#by stage
+frates_vec1SW =c(0, 0.05, 0.07, 0.1)
+frates_vecMSW =c(0, 0.1, 0.15, 0.2)
+
+#equal between stages
+#frates_vec =c(0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55, 0.6, 0.65, 0.7, 0.75, 0.8, 0.85, 0.9, 0.95, 1)
+
 scenarioFishingRate = as.numeric(args[3])
 
 
 #frates=c(.0,.15,.30) # Fishing rates
 if ( fish.stage==TRUE)
 {
-  frates = c(0, frates_vec[scenarioFishingRate], 0, frates_vec[scenarioFishingRate]) # (1SW_init, 1SW, MSW_init, MSW)
+  frates = c(0, frates_vec1SW[scenarioFishingRate], 0, frates_vecMSW[scenarioFishingRate]) # (1SW_init, 1SW, MSW_init, MSW)
   
   fratesSource = frates # fishing rates by stage (1SW vs MSW) for source populations (13/04/2021 : ajout du taux d'exploitation initial et au bout de 10ans) 
   fratesSink = frates # fishing rates by stage (1SW vs MSW) for sink populations
