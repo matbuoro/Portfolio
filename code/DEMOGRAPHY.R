@@ -7,7 +7,7 @@ if (length(args)==0){
 }
 
 
-dir_results <- "/media/hdd4To/alamarins/metapop_amaia/Paper_metaIbasam_scripts/results/"
+dir_results <- "folder/results/"
 
 #_________________ PACKAGES _________________#
 library(fst)
@@ -23,7 +23,7 @@ CV <- function(x) (sd(x/mean(x)))*100
 #source("/media/hdd4To/mbuoro/MetaIBASAM-Projects/FishStrat/dataIbasam.R")
 #source("/media/hdd4To/mbuoro/MetaIBASAM-Projects/FishStrat/parIbasam.R")
 
-nSIMUL <- 1
+nSIMUL <- 30
 nYear <- 40
 nInit <- 10 # Nb years at initialization
 npop <- 15
@@ -54,7 +54,7 @@ nExploitation <- list()
 #LFParr <- list()
 #LFSmolt <- list()
 #LFReturns <- list()
-Fishing_rates <- list()
+#Fishing_rates <- list()
 
 # SCENARIOS
 iEXPE <- args
@@ -64,7 +64,7 @@ iEXPE <- args
 #for (iEXPE in EXPE){ # Loop over scenario 
 
  
-  tmp1 <- tmp2 <- tmp3 <- tmp4 <- tmp5 <- tmp6 <- tmp7 <- tmp8<-list()
+  #tmp1 <- tmp2 <- tmp3 <- tmp4 <- tmp5 <- tmp6 <- tmp7 <- tmp8<-list()
   
   #_________________ DATA _________________#
 
@@ -83,7 +83,7 @@ iEXPE <- args
     tmp0 <- NULL
     Nparr0 <- Nsmolt0 <- NRet <- N1SW <- NMSW <- Nhomers <- NIm <- Im.table <- Exploitation <- matrix(NA,nYear+nInit,npop)
     #LFparr0 <- LFsmolt0 <- LFreturns <- matrix(NA,nYear+nInit,npop)
-    fishing_rates=NULL
+    #fishing_rates=NULL
     results=NULL
     
     
@@ -92,7 +92,7 @@ iEXPE <- args
     df <- read.fst(paste0(dir_results,"results_Dispersal_",iEXPE,"/Metapop_Sc",iEXPE,"_Sim",repmod,".fst"))
     load(paste0(dir_results,"results_Dispersal_",iEXPE,"/Fishing_rates_Sc",iEXPE,"_Sim",repmod,".RData"))
 
-        for (pop in 1:npop){ # loop over popualtions
+    for (pop in 1:npop){ # loop over popualtions
       
       demo <- NULL
       demo <- subset(df, Pop==pop)
@@ -106,30 +106,6 @@ iEXPE <- args
       #fishing_tmp<-NULL
       #fishing_tmp <- results[[pop]]$fishing_rate
       #fishing_rates <- rbind(fishing_rates, fishing_tmp)
-      
-      #-------------------------------#
-      #  Composition des populations  #
-      #-------------------------------#  
-      
-      # toto1 <- demo$year # years (from 1 to (max(demo$year)-1))
-      # if(sum(is.na(toto1)==0)!=0){
-      #   nReturns.tmp = NULL
-      #   for (i in 1:(max(demo$year)-1)){
-      #     res <- proportions.population(demo[demo$year==i,])
-      #     
-      #     nReturns.tmp <- c(nReturns.tmp,res$nReturns)
-      # 
-      #   }} else{res <- NA}
-      # 
-      # nReturns.table <- rbind(nReturns.table, nReturns.tmp)
-      # 
-      
-      # Number of returns
-      #toto1 <- demo$year # years (from 1 to (max(demo$year)-1))
-      #toto2 <- demo$Returns # individual indicator of return ( 1, 0 otherwise)
-      #toto3 <- demo$CollecID # individual indicator of return ( 1, 0 otherwise)
-      #toto4 <- demo$Parr
-      #toto5 <- demo$Smolt
       
       
       for (i in 1:nyears){
@@ -186,18 +162,26 @@ iEXPE <- args
       
     } # end loop population
     
-    tmp1[[repmod]] <- Nparr0
-    tmp2[[repmod]] <- Nsmolt0
-    tmp3[[repmod]] <- list(Nhom=Nhomers, NIm=NIm, NEm=Reduce('+',tmp0), Im=tmp0)
-    tmp4[[repmod]] <- NRet
-    tmp5[[repmod]] <- N1SW
-    tmp6[[repmod]] <- NMSW
     
+    nParr[[repmod]] <- Nparr0
+    nSmolt[[repmod]] <- Nsmolt0
+    Mig[[repmod]] <- list(Nhom=Nhomers, NIm=NIm, NEm=Reduce('+',tmp0), Im=tmp0)
+    nReturns[[repmod]] <- NRet
+    #tmp5[[repmod]] <- N1SW
+    #tmp6[[repmod]] <- NMSW
+    nExploitation[[repmod]] <- Exploitation
+    
+    # tmp1[[repmod]] <- Nparr0
+    # tmp2[[repmod]] <- Nsmolt0
+    # tmp3[[repmod]] <- list(Nhom=Nhomers, NIm=NIm, NEm=Reduce('+',tmp0), Im=tmp0)
+    # tmp4[[repmod]] <- NRet
+    # tmp5[[repmod]] <- N1SW
+    # tmp6[[repmod]] <- NMSW
+    # tmp8[[repmod]] <- Exploitation
     #tmp5[[repmod]] <- LFparr0
     #tmp6[[repmod]] <- LFsmolt0
     #tmp7[[repmod]] <- LFreturns
     
-    tmp8[[repmod]] <- Exploitation
     
     
     # tmp1[[repmod]] <- NParr.table
@@ -205,6 +189,7 @@ iEXPE <- args
     # tmp3[[repmod]] <- list(Nhom=Nhomers.table, NIm=NIm.table, NEm=Reduce('+', tmp2), Im=tmp2)
     # tmp4[[repmod]] <- NRet.table
     #tmp6[[repmod]] <- list(Npeche=Npeche.table, Ppeche=Ppeche.table)
+    
     
     
     ## COMPUTE PE ##
@@ -235,22 +220,22 @@ iEXPE <- args
   } # end loop simul
   
   #tmp5 <- sync #cbind(pe,CV_est,CV_obs,petr,CV_esttr,CV_obstr,sync)
-  tmp5 <- cbind(pe,pe_trend,sync,sync_trend)
+  PE <- cbind(pe,pe_trend,sync,sync_trend)
   
-  nParr[[paste0(iEXPE)]] <- tmp1
-  nSmolt[[paste0(iEXPE)]] <- tmp2
-  Mig[[paste0(iEXPE)]] <- tmp3
-  nReturns[[paste0(iEXPE)]] <- tmp4
+  # nParr[[paste0(iEXPE)]] <- tmp1
+  # nSmolt[[paste0(iEXPE)]] <- tmp2
+  # Mig[[paste0(iEXPE)]] <- tmp3
+  # nReturns[[paste0(iEXPE)]] <- tmp4
   
   #LFParr[[paste0(iEXPE)]] <- tmp5
   #LFSmolt[[paste0(iEXPE)]] <- tmp6
   #LFReturns[[paste0(iEXPE)]] <- tmp7
   
-  nExploitation[[paste0(iEXPE)]] <- tmp8
+  # nExploitation[[paste0(iEXPE)]] <- tmp8
+  # 
+  # Fishing_rates[[paste0(iEXPE)]] <- fishing_rates
   
-  Fishing_rates[[paste0(iEXPE)]] <- fishing_rates
-  
-  PE[[paste0(iEXPE)]] <- tmp5
+  #PE[[paste0(iEXPE)]] <- tmp5
   #Exploitation[[paste0(iEXPE)]] <- tmp6
   
   #save(nReturns=tmp4, PE=tmp5, Exploitation=tmp6, file=paste0("results/DEMOGRAPHY_",iEXPE,".RData"))
