@@ -1,4 +1,4 @@
-This R project gathers all the data and R code needed to reproduce simulations and results analysis that are presented in the paper untitled "Overlooked implications of dispersal in Atlantic salmon: lessons from a demo-genetic agent-based model".
+This R project gathers all the data and R code needed to reproduce simulations and results analysis that are presented in the paper untitled "Implications of dispersal in Atlantic salmon: lessons from a demo-genetic agent-based model".
 
 It is the first application study using MetaIBASAM, a demo-genetic agent-based model to simulate spatially structured salmon populations.
 
@@ -8,8 +8,8 @@ In this study, we ran different scenarios of dispersal rates and look at their d
 
 ----
 
-Contacts: 
-amaia.lamarins@inrae.fr 
+Contacts:
+amaia.lamarins@inrae.fr
 mathieu.buoro@inrae.fr
 
 ----
@@ -60,4 +60,3 @@ The Rextract.sh file launches the files "DEMOGRAPHY.R" and "PHENOGENOTYPE.R" on 
 4. Plot the figures found in the paper illustrating some model processes and simulations outcomes.
 
 Run the R code in the file "FIGURES.R" in the "code" folder.
-
